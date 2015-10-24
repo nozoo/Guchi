@@ -16,6 +16,17 @@ public class ArticleDBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table article(" + "article text," + "date text" + ");");
+
+        //【奥村追加】ネガポジ用のテーブル
+        db.execSQL("create table negapoji(" +
+                "id INTEGER PRIMARY KEY " +
+                ",Pozi REAR " +
+                ",Nega REAR " +
+                ",Year INTEGER " +
+                ",Month INTEGER " +
+                ",Day INTEGER " +
+                ");");
+
     }
 
     @Override

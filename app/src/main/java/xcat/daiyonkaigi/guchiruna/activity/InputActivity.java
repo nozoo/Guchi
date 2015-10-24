@@ -17,6 +17,7 @@ import java.util.Date;
 
 import xcat.daiyonkaigi.guchiruna.R;
 import xcat.daiyonkaigi.guchiruna.db.ArticleDBOpenHelper;
+import xcat.daiyonkaigi.guchiruna.negapozi.AsyncHttpRequest;//【奥村追加】
 
 
 public class InputActivity extends Activity {
@@ -35,6 +36,10 @@ public class InputActivity extends Activity {
 
         //TODO 日付などの情報を取得
 
+        //【奥村追加】ネガポジクラスのオブジェクト生成
+        final AsyncHttpRequest asyncTask = new AsyncHttpRequest(this);
+
+
         //ボタン押下時の登録処理
         Button confirmButton = (Button)this.findViewById(R.id.button);
         confirmButton.setOnClickListener(new View.OnClickListener(){
@@ -47,6 +52,10 @@ public class InputActivity extends Activity {
                 articleInsertValues.put("date", getCurrentDate());
 
                 long id = db.insert("article", "null", articleInsertValues);
+
+                //【奥村追加】ネガポジ用のクラスに値を投げる
+                asyncTask.execute(article);     //asyncTask.execute(  このなかにつぶやきの内容を格納する  );
+
 
                 //次画面での表示処理
                 Intent dbIntent = new Intent(InputActivity.this,TimelineActivity.class);
